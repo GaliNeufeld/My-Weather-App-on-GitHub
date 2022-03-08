@@ -101,3 +101,8 @@ a {
   background: whitesmoke;
   border: none;
 }
+footer {
+  display: block;
+  text-align: center;
+  font-size: small;
+}
