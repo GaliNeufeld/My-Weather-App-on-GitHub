@@ -47,6 +47,8 @@ let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", showCity);
 
 function showTemp(response) {
+  console.log(response.data);
+  console.log(response.data.dt);
   let h1 = document.querySelector("h1");
   let cityElement = response.data.name;
   h1.innerHTML = `${cityElement}`;
@@ -62,7 +64,7 @@ function showTemp(response) {
   let feelsLike = document.querySelector("#feelsLike");
   feelsLike.innerHTML = Math.round(response.data.main.feels_like);
   let description = document.querySelector("#description");
-  let updatedDescription = response.data.weather[0].main;
+  let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
 }
 //Bonus homework

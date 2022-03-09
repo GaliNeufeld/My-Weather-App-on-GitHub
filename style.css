@@ -78,6 +78,9 @@ a {
   width: 40% !important;
   margin-left: 40px;
 }
+#description:first-letter {
+  text-transform: capitalize;
+}
 #temperature {
   font-size: 50px;
 }
@@ -105,4 +108,5 @@ footer {
   display: block;
   text-align: center;
   font-size: small;
+  padding-top: 100px;
 }
