@@ -1,41 +1,43 @@
-let now = new Date();
-let date = now.getDate();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
-let year = now.getFullYear();
-let hour = now.getHours();
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
-}
-
-let todaysDate = document.querySelector("#date");
-todaysDate.innerHTML = `${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
-
-function showCity(event) {
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let date = now.getDate();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
+  let year = now.getFullYear();
+  let hour = now.getHours();
+  if (hour < 10) {
+      hour = `0${hour}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+      minutes = `0${minutes}`;
+  }
+  return `${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
+  
+  function showCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
@@ -66,6 +68,8 @@ function showTemp(response) {
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
+  let todaysDate = document.querySelector("#date");
+  todaysDate.innerHTML = formatDate(response.data.dt * 1000);
 }
 //Bonus homework
 
