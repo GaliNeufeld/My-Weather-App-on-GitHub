@@ -5,7 +5,7 @@ function showCity(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
   console.log(apiUrl);
 }
@@ -18,15 +18,16 @@ function showTemp(response) {
   h1.innerHTML = `${cityElement}`;
   let temperature = document.querySelector("#temperature");
   let currentTemp = Math.round(response.data.main.temp);
-  temperature.innerHTML = `${currentTemp}C°`;
+  temperature.innerHTML = `${currentTemp}°F`;
   let currentHumidity = response.data.main.humidity;
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
-  let currentWind = Math.round(response.data.wind.speed);
-  wind.innerHTML = `Wind: ${currentWind} km/h`;
+  let currentWind = Math.round(response.data.wind.speed * 0.62);
+  wind.innerHTML = `${currentWind} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
-  feelsLike.innerHTML = Math.round(response.data.main.feels_like);
+  let currentFeelsLike = Math.round(response.data.main.feels_like);
+  feelsLike.innerHTML = `${currentFeelsLike}°F`;
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
@@ -85,14 +86,15 @@ function showCoord(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
   console.log(apiUrl);
   axios.get(`${apiUrl}&appid=${apiKey}`).then(displayTemp);
 }
 function displayTemp(response) {
   console.log(response.data);
-  let temp = document.querySelector("#temperature");
-  temp.innerHTML = Math.round(response.data.main.temp);
+  let temperature = document.querySelector("#temperature");
+  let currentTemp = Math.round(response.data.main.temp);
+  temperature.innerHTML = `${currentTemp}F`;
   let currentPlace = response.data.name;
   let h1 = document.querySelector("h1");
   h1.innerHTML = `${currentPlace}`;
@@ -100,10 +102,11 @@ function displayTemp(response) {
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
-  let currentWind = Math.round(response.data.wind.speed);
-  wind.innerHTML = `${currentWind}km/h`;
+  let currentWind = Math.round(response.data.wind.speed * 0.62);
+  wind.innerHTML = `${currentWind} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
-  feelsLike.innerHTML = Math.round(response.data.main.feels_like);
+  let currentFeelsLike = Math.round(response.data.main.feels_like);
+  feelsLike.innerHTML = `${currentFeelsLike}°F`;
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
