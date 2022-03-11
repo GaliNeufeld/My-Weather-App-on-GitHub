@@ -9,13 +9,13 @@ function showCity(event) {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
   console.log(apiUrl);
 }
-
 function showTemp(response) {
   let h1 = document.querySelector("h1");
   let cityElement = response.data.name;
   h1.innerHTML = `${cityElement}`;
   let temperature = document.querySelector("#temperature");
-  let currentTemp = Math.round(response.data.main.temp);
+  fahrenheitTemp = response.data.main.temp;
+  let currentTemp = Math.round(fahrenheitTemp);
   temperature.innerHTML = `${currentTemp}°F`;
   let currentHumidity = response.data.main.humidity;
   let humidity = document.querySelector("#humidity");
@@ -78,6 +78,25 @@ function formatDate(timestamp) {
   }
   return `${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
 }
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let celsiusTemp = (fahrenheitTemp - 32) / 1.8;
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement = Math.round(fahrenheitTemp);
+}
+let fahrenheitTemp = null;
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToCelsius);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
 //Bonus homework
 
 let currentLocation = document.querySelector("#Current-location-button");
