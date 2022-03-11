@@ -11,8 +11,6 @@ function showCity(event) {
 }
 
 function showTemp(response) {
-  console.log(response.data);
-  console.log(response.data.dt);
   let h1 = document.querySelector("h1");
   let cityElement = response.data.name;
   h1.innerHTML = `${cityElement}`;
@@ -33,7 +31,14 @@ function showTemp(response) {
   description.innerHTML = `${updatedDescription}`;
   let todaysDate = document.querySelector("#date");
   todaysDate.innerHTML = formatDate(response.data.dt * 1000);
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
+
 function formatDate(timestamp) {
   let now = new Date(timestamp);
   let date = now.getDate();
@@ -82,7 +87,6 @@ function getPosition(position) {
   navigator.geolocation.getCurrentPosition(showCoord);
 }
 function showCoord(position) {
-  console.log(position);
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
@@ -91,10 +95,9 @@ function showCoord(position) {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(displayTemp);
 }
 function displayTemp(response) {
-  console.log(response.data);
   let temperature = document.querySelector("#temperature");
   let currentTemp = Math.round(response.data.main.temp);
-  temperature.innerHTML = `${currentTemp}F`;
+  temperature.innerHTML = `${currentTemp}°F`;
   let currentPlace = response.data.name;
   let h1 = document.querySelector("h1");
   h1.innerHTML = `${currentPlace}`;
@@ -110,4 +113,10 @@ function displayTemp(response) {
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
