@@ -24,8 +24,8 @@ function showTemp(response) {
   windImperial = Math.round(response.data.wind.speed * 0.62);
   wind.innerHTML = `${windImperial} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
-  let currentFeelsLike = Math.round(response.data.main.feels_like);
-  feelsLike.innerHTML = `${currentFeelsLike}°F`;
+  feelsLikeFahr = Math.round(response.data.main.feels_like);
+  feelsLike.innerHTML = `${feelsLikeFahr}°F`;
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
@@ -76,7 +76,7 @@ function formatDate(timestamp) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  return `${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
+  return `Last updated: ${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
 }
 
 function convertToCelsius(event) {
@@ -88,6 +88,10 @@ function convertToCelsius(event) {
   let windMetric = windImperial * 1.609;
   windMetric = Math.round(windImperial * 1.609);
   windElement.innerHTML = `${windMetric}km/h`;
+  let feelsLikeElement = document.querySelector("#feelsLike");
+  let feelsLikeCelsius = (feelsLikeFahr - 32) / 1.8;
+  feelsLikeCelsius = Math.round(feelsLikeCelsius);
+  feelsLikeElement.innerHTML = `${feelsLikeCelsius}°C`;
 }
 function convertToFahrenheit(event) {
   event.preventDefault();
@@ -96,6 +100,7 @@ function convertToFahrenheit(event) {
 }
 let fahrenheitTemp = null;
 let windImperial = null;
+let feelsLikeFahr = null;
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
 
