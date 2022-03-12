@@ -21,8 +21,8 @@ function showTemp(response) {
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
-  let currentWind = Math.round(response.data.wind.speed * 0.62);
-  wind.innerHTML = `${currentWind} m/ph`;
+  windImperial = Math.round(response.data.wind.speed * 0.62);
+  wind.innerHTML = `${windImperial} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
   let currentFeelsLike = Math.round(response.data.main.feels_like);
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
@@ -84,6 +84,10 @@ function convertToCelsius(event) {
   let temperatureElement = document.querySelector("#temperature");
   let celsiusTemp = (fahrenheitTemp - 32) / 1.8;
   temperatureElement.innerHTML = Math.round(celsiusTemp);
+  let windElement = document.querySelector("#wind");
+  let windMetric = windImperial * 1.609;
+  windMetric = Math.round(windImperial * 1.609);
+  windElement.innerHTML = `${windMetric}km/h`;
 }
 function convertToFahrenheit(event) {
   event.preventDefault();
@@ -91,6 +95,7 @@ function convertToFahrenheit(event) {
   temperatureElement = Math.round(fahrenheitTemp);
 }
 let fahrenheitTemp = null;
+let windImperial = null;
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
 
@@ -124,7 +129,7 @@ function displayTemp(response) {
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
-  let currentWind = Math.round(response.data.wind.speed * 0.62);
+  let currentWind = Math.round(response.data.main.wind * 0.62);
   wind.innerHTML = `${currentWind} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
   let currentFeelsLike = Math.round(response.data.main.feels_like);
