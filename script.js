@@ -83,7 +83,8 @@ function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
   let celsiusTemp = (fahrenheitTemp - 32) / 1.8;
-  temperatureElement.innerHTML = Math.round(celsiusTemp);
+  let currentCelsiusTemp = Math.round(celsiusTemp);
+  temperatureElement.innerHTML = `${currentCelsiusTemp}°C`;
   let windElement = document.querySelector("#wind");
   let windMetric = windImperial * 1.609;
   windMetric = Math.round(windImperial * 1.609);
@@ -96,7 +97,14 @@ function convertToCelsius(event) {
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
-  temperatureElement = Math.round(fahrenheitTemp);
+  let currentTemp = Math.round(fahrenheitTemp);
+  temperatureElement.innerHTML = `${currentTemp}°F`;
+  let windElement = document.querySelector("#wind");
+  let currentWind = Math.round(windImperial);
+  windElement.innerHTML = `${currentWind} m/ph`;
+  let feelsLike = document.querySelector("#feelsLike");
+  let currentFeelsLike = Math.round(feelsLikeFahr);
+  feelsLike.innerHTML = `${currentFeelsLike}°F`;
 }
 let fahrenheitTemp = null;
 let windImperial = null;
