@@ -85,17 +85,18 @@ a {
 #temperature {
   font-size: 50px;
 }
-#fahrehheit-link,
+#fahrenheit-link,
 #celsius-link {
-  color: #1c4b82;
   font-size: 20px;
 }
-#fahrehheit-link:hover,
-#celsius-link:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
 
+.main .active {
+  color: #1c4b82;
+  cursor: default;
+}
+.main .active:hover {
+  text-decoration: none;
+}
 .wind {
   border-radius: 10px;
   border: none;

@@ -82,6 +82,8 @@ function formatDate(timestamp) {
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
   let celsiusTemp = (fahrenheitTemp - 32) / 1.8;
   let currentCelsiusTemp = Math.round(celsiusTemp);
   temperatureElement.innerHTML = `${currentCelsiusTemp}°C`;
@@ -97,6 +99,8 @@ function convertToCelsius(event) {
 function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
+  fahrenheitLink.classList.add("active");
+  celsiusLink.classList.remove("active");
   let currentTemp = Math.round(fahrenheitTemp);
   temperatureElement.innerHTML = `${currentTemp}°F`;
   let windElement = document.querySelector("#wind");
