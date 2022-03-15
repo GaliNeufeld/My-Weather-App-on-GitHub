@@ -36,14 +36,20 @@ h3 {
   margin-bottom: 5px;
 }
 
-.days {
-  text-align: center;
+.weather-forecast {
+  text-align: left;
   padding: 10px 20px;
-  border: 1px solid #8dc6ff;
-  border-radius: 10px;
+
   font-size: 18px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.weather-forecast-temperature-min {
+  opacity: 0.6;
+}
+.col-days {
+  border: 1px solid #8dc6ff;
+  border-radius: 10px;
 }
 .btn {
   background: #8dc6ff;
@@ -88,6 +94,7 @@ h3 {
   font-size: 20px;
   text-decoration: none;
 }
+#fahrenheit-link:hover,
 #celsius-link:hover {
   text-decoration: underline;
 }
@@ -107,9 +114,7 @@ h3 {
   background: whitesmoke;
   border: none;
 }
-.min {
-  opacity: 0.6;
-}
+
 footer {
   display: block;
   text-align: center;
