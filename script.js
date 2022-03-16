@@ -110,6 +110,36 @@ function convertToFahrenheit(event) {
   let currentFeelsLike = Math.round(feelsLikeFahr);
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
 }
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  
+  let days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col">
+      <div class="weather-forecast-date">${day}</div>
+      <img
+        src="http://openweathermap.org/img/wn/50d@2x.png"
+        alt=""
+        width="42"
+      />
+      <div class="weather-forecast-temperatures">
+        <span class="weather-forecast-temperature-min">34°</span>
+        <span class="weather-forecast-temperature-max">45°</span>
+      </div>
+    </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
+
 let fahrenheitTemp = null;
 let windImperial = null;
 let feelsLikeFahr = null;
