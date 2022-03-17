@@ -95,9 +95,14 @@ h3 {
   font-size: 20px;
   text-decoration: none;
 }
+
 #fahrenheit-link:hover,
 #celsius-link:hover {
   text-decoration: underline;
+}
+#fahrenheit-link.active:hover,
+#celsius-link.active:hover {
+  text-decoration: none;
 }
 #forecast {
   margin-top: 30px;
