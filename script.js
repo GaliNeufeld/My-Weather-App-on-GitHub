@@ -97,7 +97,7 @@ function formatDay(timestamp) {
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
@@ -134,11 +134,10 @@ function convertToFahrenheit(event) {
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
 }
 function displayForecast(response) {
-  console.log(response.data.list);
-  let forecast = response.data.list;
+  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 5) {
@@ -157,10 +156,10 @@ function displayForecast(response) {
       />
       <div class="weather-forecast-temperatures">
         <span class="weather-forecast-temperature-min">${Math.round(
-          forecastDay.main.temp_min
+          forecastDay.temp.min
         )}°</span>
         <span class="weather-forecast-temperature-max">${Math.round(
-          forecastDay.main.temp_max
+          forecastDay.temp.max
         )}°</span>
       </div>
     </div>
