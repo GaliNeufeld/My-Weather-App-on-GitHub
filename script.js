@@ -37,6 +37,8 @@ function showTemp(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  console.log(response.data);
+  getForecast(response.data.coord);
 }
 
 function formatDate(timestamp) {
@@ -78,6 +80,13 @@ function formatDate(timestamp) {
   }
   return `Last updated: ${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
 }
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
 
 function convertToCelsius(event) {
   event.preventDefault();
@@ -110,9 +119,10 @@ function convertToFahrenheit(event) {
   let currentFeelsLike = Math.round(feelsLikeFahr);
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
 }
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.list);
   let forecastElement = document.querySelector("#forecast");
-  
+
   let days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"];
   let forecastHTML = `<div class="row">`;
   days.forEach(function (day) {
@@ -137,8 +147,6 @@ function displayForecast() {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-
-displayForecast();
 
 let fahrenheitTemp = null;
 let windImperial = null;
