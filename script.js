@@ -71,13 +71,12 @@ function formatDate(timestamp) {
   let month = months[now.getMonth()];
   let year = now.getFullYear();
   let hour = now.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
+  hour = now.toLocaleString("en-US", { hour: "numeric", hour12: true });
   let minutes = now.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+
   return `Last updated: ${day}, ${month} ${date}, ${year} &nbsp; ${hour}:${minutes}`;
 }
 function formatDay(timestamp) {
