@@ -197,6 +197,7 @@ function showCoord(position) {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(displayTemp);
 }
 function displayTemp(response) {
+  console.log(response.data);
   let temperature = document.querySelector("#temperature");
   let currentTemp = Math.round(response.data.main.temp);
   temperature.innerHTML = `${currentTemp}°F`;
@@ -207,7 +208,7 @@ function displayTemp(response) {
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
-  let currentWind = Math.round(response.data.main.wind * 0.62);
+  let currentWind = Math.round(response.data.wind.speed * 0.62);
   wind.innerHTML = `${currentWind} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
   let currentFeelsLike = Math.round(response.data.main.feels_like);
@@ -215,6 +216,8 @@ function displayTemp(response) {
   let description = document.querySelector("#description");
   let updatedDescription = response.data.weather[0].description;
   description.innerHTML = `${updatedDescription}`;
+  let todaysDate = document.querySelector("#date");
+  todaysDate.innerHTML = formatDate(response.data.dt * 1000);
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute(
     "src",
