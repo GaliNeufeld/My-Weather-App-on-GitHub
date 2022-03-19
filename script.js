@@ -1,14 +1,19 @@
 let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", showCity);
+searchForm.addEventListener("submit", handleSubmit);
 
-function showCity(event) {
+function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
+  showCity(city);
+}
+
+function showCity(city) {
   let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
   console.log(apiUrl);
 }
+
 function showTemp(response) {
   let h1 = document.querySelector("h1");
   let cityElement = response.data.name;
@@ -79,6 +84,7 @@ function formatDate(timestamp) {
 
   return `Last updated: ${day}, ${month} ${date}, ${year}  at ${hour}`;
 }
+
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -143,7 +149,7 @@ function displayForecast(response) {
       forecastHTML =
         forecastHTML +
         `
-    <div class="col">
+    <div class="col days">
       <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
   
       <img
@@ -179,6 +185,7 @@ celsiusLink.addEventListener("click", convertToCelsius);
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
+showCity("New York");
 //Bonus homework
 
 let currentLocation = document.querySelector("#Current-location-button");
