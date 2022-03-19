@@ -17,7 +17,8 @@ function showCity(city) {
 function showTemp(response) {
   let h1 = document.querySelector("h1");
   let cityElement = response.data.name;
-  h1.innerHTML = `${cityElement}`;
+  let countryElement = response.data.sys.country;
+  h1.innerHTML = `${cityElement}, ${countryElement}`;
   let temperature = document.querySelector("#temperature");
   fahrenheitTemp = response.data.main.temp;
   let currentTemp = Math.round(fahrenheitTemp);
@@ -208,8 +209,9 @@ function displayTemp(response) {
   let currentTemp = Math.round(response.data.main.temp);
   temperature.innerHTML = `${currentTemp}°F`;
   let currentPlace = response.data.name;
+  let currentCountry = response.data.sys.country;
   let h1 = document.querySelector("h1");
-  h1.innerHTML = `${currentPlace}`;
+  h1.innerHTML = `${currentPlace}, ${currentCountry}`;
   let currentHumidity = response.data.main.humidity;
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;

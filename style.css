@@ -26,15 +26,14 @@ body {
 }
 h1 {
   font-size: 48px;
+  font-weight: bold;
   padding-left: 30px;
   padding-top: 20px;
+  padding-bottom: 10px;
 }
 h3 {
   font-size: 22px;
   padding-left: 30px;
-}
-#date {
-  margin-bottom: 5px;
 }
 
 .weather-forecast {
@@ -83,6 +82,15 @@ h3 {
 .w-100 {
   width: 40% !important;
   margin-left: 40px;
+}
+#date {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+#description {
+  font-size: 25px;
+  font-weight: bold;
 }
 #description:first-letter {
   text-transform: capitalize;
