@@ -47,9 +47,14 @@ h3 {
 .weather-forecast-temperature-min {
   opacity: 0.6;
 }
-.col-days {
+.days {
   border: 1px solid #8dc6ff;
   border-radius: 10px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .btn {
   background: #8dc6ff;
@@ -83,6 +88,7 @@ h3 {
   width: 40% !important;
   margin-left: 40px;
 }
+
 #date {
   font-size: 18px;
   margin-bottom: 5px;
@@ -122,18 +128,11 @@ h3 {
 .main .active:hover {
   text-decoration: none;
 }
-.wind {
-  border-radius: 10px;
-  border: none;
-}
+
 .btn:hover {
   color: #8dc6ff;
   background: whitesmoke;
   border: none;
-}
-.col.days {
-  text-align: center;
-  border: 1px, solid, #1c4b82;
 }
 
 footer {
