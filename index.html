@@ -19,7 +19,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -38,26 +38,25 @@
             <button class="btn btn-success w-100" id="Current-location-button">
               My location 📍
             </button>
-        
+          </div>
         </div>
       </form>
       <br />
       <h1>New York</h1>
       <h3>
-        <p class="date" id="date">
-          Last updated: 
-        </p>
-        <br>
-        <hr>
+        <p class="date" id="date">Last updated:</p>
+        <br />
+        <hr />
         <p class="description" id="description">Clear</p>
       </h3>
       <br />
+
       <div class="row main">
         <div class="col-6 now">
           <img
-           src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
-           alt="clear"
-           id="icon"
+            src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
+            alt="clear"
+            id="icon"
           />
           <span class="temperature" id="temperature"> </span>
           <span class="units">
@@ -68,9 +67,7 @@
         <div class="col-6 values">
           Humidity: <span class="humidity" id="humidity"></span>
           <div class="row-1">
-            <div class="col">
-              Wind: <span class="wind" id="wind"></span>
-            </div>
+            <div class="col">Wind: <span class="wind" id="wind"></span></div>
           </div>
           <div class="row-2">
             <div class="col">
@@ -78,15 +75,16 @@
             </div>
           </div>
         </div>
+
+        <div class="weather-forecast" id="forecast"></div>
       </div>
-    
-      <div class="weather-forecast" id="forecast">  
-     </div> 
-    </div> 
       <footer>
-        <a href="https://github.com/GaliNeufeld/My-Weather-App-on-GitHub" 
-        target="_blank">open-source code</a> 
-         by Gali Neufeld
+        <a
+          href="https://github.com/GaliNeufeld/My-Weather-App-on-GitHub"
+          target="_blank"
+          >open-source code</a
+        >
+        by Gali Neufeld
       </footer>
     </div>
     <script src="script.js"></script>

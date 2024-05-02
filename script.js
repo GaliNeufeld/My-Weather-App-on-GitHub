@@ -8,42 +8,47 @@ function handleSubmit(event) {
 }
 
 function showCity(city) {
-  let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+  let apiKey = "303b041t9dc7c1ce08f4ao48696a7fa8";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
-  console.log(apiUrl);
+  // console.log(apiUrl);
 }
 
 function showTemp(response) {
   let h1 = document.querySelector("h1");
-  let cityElement = response.data.name;
-  let countryElement = response.data.sys.country;
+  let cityElement = response.data.city;
+  let countryElement = response.data.country;
+  
   h1.innerHTML = `${cityElement}, ${countryElement}`;
   let temperature = document.querySelector("#temperature");
-  fahrenheitTemp = response.data.main.temp;
+  fahrenheitTemp = response.data.temperature.current;
   let currentTemp = Math.round(fahrenheitTemp);
   temperature.innerHTML = `${currentTemp}°F`;
-  let currentHumidity = response.data.main.humidity;
+  let currentHumidity = response.data.temperature.humidity;
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
   windImperial = Math.round(response.data.wind.speed * 0.62);
   wind.innerHTML = `${windImperial} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
-  feelsLikeFahr = Math.round(response.data.main.feels_like);
+  feelsLikeFahr = Math.round(response.data.temperature.feels_like);
   feelsLike.innerHTML = `${feelsLikeFahr}°F`;
   let description = document.querySelector("#description");
-  let updatedDescription = response.data.weather[0].description;
+  let updatedDescription = response.data.condition.description;
   description.innerHTML = `${updatedDescription}`;
   let todaysDate = document.querySelector("#date");
-  todaysDate.innerHTML = formatDate(response.data.dt * 1000);
+  todaysDate.innerHTML = formatDate(response.data.time * 1000);
   let iconElement = document.querySelector("#icon");
+  let currentIcon = response.data.condition.icon_url;
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    // `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`//
+    // `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/icon.png`
+    currentIcon
   );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
-  getForecast(response.data.coord);
+  iconElement.setAttribute("alt", response.data.condition.icon);
+  getForecast(response.data.coordinates, response.data.city);
+  // console.log(response.data.coordinates);
 }
 
 function formatDate(timestamp) {
@@ -99,10 +104,10 @@ function formatDay(timestamp) {
   ];
   return days[day];
 }
-function getForecast(coordinates) {
-  let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
-
+function getForecast(coordinates, city) {
+  let apiKey = "303b041t9dc7c1ce08f4ao48696a7fa8";
+  // let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -138,7 +143,8 @@ function convertToFahrenheit(event) {
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
 }
 function displayForecast(response) {
-  let forecast = response.data.daily;
+  // console.log(response.data);
+  let forecast = (response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
@@ -148,21 +154,21 @@ function displayForecast(response) {
         forecastHTML +
         `
     <div class="col days">
-      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+      <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
   
       <img
-        src="http://openweathermap.org/img/wn/${
-          forecastDay.weather[0].icon
-        }@2x.png"
-        alt=""
+        src= ${forecastDay.condition.icon_url}
+         
+       
+        alt=${forecastDay.condition.icon}
         width="42"
       />
       <div class="weather-forecast-temperatures">
         <span class="weather-forecast-temperature-min">${Math.round(
-          forecastDay.temp.min
+          forecastDay.temperature.minimum
         )}°- </span>
         <span class="weather-forecast-temperature-max">${Math.round(
-          forecastDay.temp.max
+          forecastDay.temperature.maximum
         )}°</span>
       </div>
     </div>
@@ -191,41 +197,45 @@ currentLocation.addEventListener("click", getPosition);
 
 function getPosition(position) {
   navigator.geolocation.getCurrentPosition(showCoord);
+  console.log(position);
 }
 function showCoord(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let apiKey = "c5b46e313ac60a38d46e9623287e0a7d";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+  let apiKey = "303b041t9dc7c1ce08f4ao48696a7fa8";
+  // let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=imperial`;
 
   axios.get(`${apiUrl}&appid=${apiKey}`).then(displayTemp);
 }
 function displayTemp(response) {
   let temperature = document.querySelector("#temperature");
-  let currentTemp = Math.round(response.data.main.temp);
+  let currentTemp = Math.round(response.data.temperature.current);
   temperature.innerHTML = `${currentTemp}°F`;
-  let currentPlace = response.data.name;
-  let currentCountry = response.data.sys.country;
+  let currentPlace = response.data.city;
+  let currentCountry = response.data.country;
   let h1 = document.querySelector("h1");
   h1.innerHTML = `${currentPlace}, ${currentCountry}`;
-  let currentHumidity = response.data.main.humidity;
+  let currentHumidity = response.data.temperature.humidity;
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${currentHumidity}%`;
   let wind = document.querySelector("#wind");
   let currentWind = Math.round(response.data.wind.speed * 0.62);
   wind.innerHTML = `${currentWind} m/ph`;
   let feelsLike = document.querySelector("#feelsLike");
-  let currentFeelsLike = Math.round(response.data.main.feels_like);
+  let currentFeelsLike = Math.round(response.data.temperature.feels_like);
   feelsLike.innerHTML = `${currentFeelsLike}°F`;
   let description = document.querySelector("#description");
-  let updatedDescription = response.data.weather[0].description;
+  let updatedDescription = response.data.condition.description;
   description.innerHTML = `${updatedDescription}`;
   let todaysDate = document.querySelector("#date");
-  todaysDate.innerHTML = formatDate(response.data.dt * 1000);
+  todaysDate.innerHTML = formatDate(response.data.time * 1000);
   let iconElement = document.querySelector("#icon");
+  let currentIcon = response.data.condition.icon_url;
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
+    // `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  currentIcon
+    );
+  iconElement.setAttribute("alt", response.data.condition.icon);
 }

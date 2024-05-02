@@ -24,6 +24,7 @@ body {
   background: transparent;
   border: 2px solid #8dc6ff;
 }
+
 h1 {
   font-size: 48px;
   font-weight: bold;
@@ -125,6 +126,7 @@ h3 {
   color: #1c4b82;
   cursor: default;
 }
+
 .main .active:hover {
   text-decoration: none;
 }
